@@ -1,0 +1,58 @@
+<html>
+<head>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      font-size: 36px;
+      text-align: center;
+    }
+    #clock {
+      margin-top: 50vh;
+      transform: translateY(-50%);
+    }
+  </style>
+  <script>
+    // A function to convert a number to morse code
+    function numToMorse(num) {
+      let morse = ["-----", ".----", "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----."];
+      return morse[num];
+    }
+
+    // A function to convert a time string to morse code
+    function timeToMorse(time) {
+      let morse = "";
+      for (let i = 0; i < time.length; i++) {
+        if (time[i] == ":") {
+          morse += " ";
+        } else {
+          morse += numToMorse(time[i]) + " ";
+        }
+      }
+      return morse;
+    }
+
+    // A function to update the clock element with the current time in morse code
+    function updateClock() {
+      let clock = document.getElementById("clock");
+      let date = new Date();
+      let hours = date.getHours();
+      let minutes = date.getMinutes();
+      let seconds = date.getSeconds();
+      // Format the time string with leading zeros
+      let time = ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
+      // Convert the time string to morse code
+      let morse = timeToMorse(time);
+      // Display the morse code on the clock element
+      clock.innerHTML = morse;
+    }
+
+    // Call the updateClock function every second
+    setInterval(updateClock, 1000);
+  </script>
+</head>
+<body>
+  <div id="clock"></div>
+</body>
+</html>
